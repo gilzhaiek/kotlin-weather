@@ -6,39 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.eightman.kweather.R
-import com.eightman.kweather.network.OpenWeatherApi
+import com.eightman.kweather.databinding.FragmentForecastBinding
 import com.eightman.kweather.ui.addons.LastLocationAddon
-import kotlinx.android.synthetic.main.fragment_forecast.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.eightman.kweather.viewmodels.ForecastViewModel
 
 class ForecastFragment : Fragment(), LastLocationAddon {
+    private val forecastViewModel: ForecastViewModel by lazy { ForecastViewModel() }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_forecast, container, false)
+        val binding = FragmentForecastBinding.inflate(inflater)
+
+        binding.lifecycleOwner = this
+        binding.viewModel = forecastViewModel
 
         lifecycle.addObserver(this)
 
-        return view
+        return binding.root
     }
 
     override fun onLocationUpdated(location: Location) {
-        GlobalScope.launch(Dispatchers.Main) {
-            val forecastResponse = withContext(Dispatchers.IO) {
-                OpenWeatherApi.forecastService.forecast(
-                    lat = location.latitude,
-                    lon = location.longitude
-                )
-            }
-
-            cityName.text = forecastResponse.city.name
-        }
+        forecastViewModel.onLocationUpdated(location)
     }
 
     override fun onRequestPermissionsResult(

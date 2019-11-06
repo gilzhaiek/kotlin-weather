@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Kotlin Weather</string>
+    <string name="waiting_for_network">Waiting for network</string>
 </resources>
