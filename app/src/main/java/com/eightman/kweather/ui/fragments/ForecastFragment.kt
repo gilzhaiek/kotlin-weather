@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.eightman.kweather.databinding.FragmentForecastBinding
+import com.eightman.kweather.network.OpenWeatherApi
 import com.eightman.kweather.ui.addons.LastLocationAddon
 import com.eightman.kweather.viewmodels.ForecastViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 
 class ForecastFragment : Fragment(), LastLocationAddon {
     private val forecastViewModel: ForecastViewModel by lazy { ForecastViewModel() }
