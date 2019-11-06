@@ -6,10 +6,11 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.eightman.kweather.R
 import com.eightman.kweather.network.ForecastResponse
+import com.eightman.kweather.utils.getUiDate
 import java.text.SimpleDateFormat
 import java.util.*
 
-val today: String get() = getUiDate(System.currentTimeMillis())
+val today: String get() = System.currentTimeMillis().toInt().getUiDate()
 
 @BindingAdapter("showOnlyWhenEmpty")
 fun View.showOnlyWhenEmpty(data: ForecastResponse?) {
@@ -30,16 +31,10 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: ForecastResponse?) {
 
 @BindingAdapter("secToDate")
 fun TextView.day(seconds: Int) {
-    val date = getUiDate(seconds * 1000L)
+    val date = (seconds * 1000).getUiDate()
     text = if (date == today) {
         resources.getString(R.string.today)
     } else {
         date
     }
 }
-
-fun getUiDate(millis: Long): String =
-    SimpleDateFormat("MMM dd, yyyy", Locale.US).let { simpleDateFormat ->
-        simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
-        return simpleDateFormat.format(Date(millis))
-    }
