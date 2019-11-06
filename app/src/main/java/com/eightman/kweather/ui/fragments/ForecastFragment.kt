@@ -28,7 +28,7 @@ class ForecastFragment : Fragment() {
                 OpenWeatherApi.forecastService.forecast(lat = 49.2827, lon = -123.1207)
             }
 
-            cityName.text = forecastResponse.city.name
+            cityNameText.text = forecastResponse.city.name
         }
     }
 }
