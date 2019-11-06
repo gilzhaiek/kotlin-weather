@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.eightman.kweather.adapters.ForecastListAdapter
 import com.eightman.kweather.databinding.FragmentForecastBinding
 import com.eightman.kweather.network.OpenWeatherApi
 import com.eightman.kweather.ui.addons.LastLocationAddon
@@ -15,6 +16,7 @@ import kotlinx.coroutines.GlobalScope
 
 class ForecastFragment : Fragment(), LastLocationAddon {
     private val forecastViewModel: ForecastViewModel by lazy { ForecastViewModel() }
+    private val forecastListAdapter: ForecastListAdapter by lazy { ForecastListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +27,7 @@ class ForecastFragment : Fragment(), LastLocationAddon {
 
         binding.lifecycleOwner = this
         binding.viewModel = forecastViewModel
+        binding.forecastList.adapter = forecastListAdapter
 
         lifecycle.addObserver(this)
 
