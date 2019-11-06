@@ -10,7 +10,7 @@ import com.eightman.kweather.utils.getUiDate
 import java.text.SimpleDateFormat
 import java.util.*
 
-val today: String get() = System.currentTimeMillis().toInt().getUiDate()
+val today: String get() = System.currentTimeMillis().getUiDate()
 
 @BindingAdapter("showOnlyWhenEmpty")
 fun View.showOnlyWhenEmpty(data: ForecastResponse?) {
@@ -31,7 +31,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: ForecastResponse?) {
 
 @BindingAdapter("secToDate")
 fun TextView.day(seconds: Int) {
-    val date = (seconds * 1000).getUiDate()
+    val date = (seconds * 1000L).getUiDate()
     text = if (date == today) {
         resources.getString(R.string.today)
     } else {
