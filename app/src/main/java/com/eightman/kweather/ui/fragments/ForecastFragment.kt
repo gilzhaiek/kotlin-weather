@@ -37,7 +37,7 @@ class ForecastFragment : Fragment(), LastLocationAddon {
                 )
             }
 
-            cityName.text = forecastResponse.city.name
+            cityNameText.text = forecastResponse.city.name
         }
     }
 
