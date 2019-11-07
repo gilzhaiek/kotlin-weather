@@ -35,6 +35,7 @@ class ForecastFragment : Fragment(), LastLocationAddon {
     }
 
     override fun onLocationUpdated(location: Location) {
+        super.onLocationUpdated(location)
         forecastViewModel.onLocationUpdated(location)
     }
 

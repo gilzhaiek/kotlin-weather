@@ -8,12 +8,22 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.eightman.kweather.KWeatherApplication.Companion.instance
+import com.eightman.kweather.db.AppDatabase
+import com.eightman.kweather.db.entities.LocationEntity
 import com.google.android.gms.location.*
 
 interface LastLocationAddon : LifecycleObserver {
     fun getContext(): Context?
 
-    fun onLocationUpdated(location: Location)
+    fun onLocationUpdated(location: Location) {
+        AppDatabase.getDatabase().locationDao().insert(
+            LocationEntity(
+                timestamp = (location.time / 1000).toInt(),
+                latitude = location.latitude,
+                longitude = location.longitude
+            )
+        )
+    }
 
     fun requestPermissions(permissions: Array<String>, requestCode: Int) // Fragment class
 
