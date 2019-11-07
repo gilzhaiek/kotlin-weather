@@ -1,6 +1,7 @@
 package com.eightman.kweather.network
 
 import com.eightman.kweather.R
+import com.eightman.kweather.utils.getUiTime
 import com.squareup.moshi.Json
 
 data class Coord(val lon: Double, val lat: Double)
@@ -49,6 +50,8 @@ data class Forecast(
     val clouds: Int
 ) {
     val weatherFirst: Weather get() = weather.firstOrNull() ?: Weather.placeholder
+    val humidityStr: String get() = "$humidity%"
+    val sunriseSunsetStr: String get() = "${sunrise.getUiTime()}/${sunset.getUiTime()}"
 }
 
 data class ForecastResponse(

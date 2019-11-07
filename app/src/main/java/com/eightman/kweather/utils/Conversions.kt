@@ -9,6 +9,11 @@ fun Long.getUiDate(): String =
         return simpleDateFormat.format(Date(this))
     }
 
+fun Int.getUiTime(): String =
+    SimpleDateFormat("h:mm a", Locale.US).let { simpleDateFormat ->
+        return simpleDateFormat.format(Date(this * 1000L))
+    }
+
 
 fun Double.kelvinToC(): Double = this - 273.15
 fun Double.kelvinToF(): Double = this.kelvinToC() * 1.8 + 32.0

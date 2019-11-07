@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="city"
             type="com.eightman.kweather.network.City" />
@@ -11,11 +12,16 @@
         <variable
             name="forecast"
             type="com.eightman.kweather.network.Forecast" />
+
+        <variable
+            name="clickListener"
+            type="com.eightman.kweather.adapters.ForecastClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(forecast)}"
         android:paddingTop="@dimen/default_padding"
         android:paddingBottom="@dimen/default_padding"
         tools:context="com.eightman.kweather.ui.fragments.ForecastListFragment">
@@ -86,6 +92,93 @@
             app:layout_constraintBottom_toBottomOf="@id/forecastItemWeather"
             app:layout_constraintEnd_toStartOf="@id/forecastItemHighTemp"
             app:layout_constraintTop_toTopOf="@id/forecastItemDate" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/forecastItemWeather">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/forecastExtended"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/default_padding"
+                android:paddingBottom="@dimen/default_padding"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineStartExtended"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.03" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineMid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.50" />
+
+                <TextView
+                    android:id="@+id/windTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wind"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStartExtended"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/windText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:inImperial="@{city.inImperial}"
+                    app:layout_constraintStart_toStartOf="@id/guidelineMid"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:speed="@{forecast.speed}" />
+
+                <TextView
+                    android:id="@+id/humidityTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:text="@string/humidity"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStartExtended"
+                    app:layout_constraintTop_toBottomOf="@id/windTitleText" />
+
+                <TextView
+                    android:id="@+id/humidityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{forecast.humidityStr}"
+                    app:layout_constraintStart_toStartOf="@id/guidelineMid"
+                    app:layout_constraintTop_toTopOf="@id/humidityTitleText" />
+
+                <TextView
+                    android:id="@+id/sunriseSetText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:text="@string/sunrise_sunset"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStartExtended"
+                    app:layout_constraintTop_toBottomOf="@id/humidityTitleText" />
+
+                <TextView
+                    android:id="@+id/sunriseSetTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{forecast.sunriseSunsetStr}"
+                    app:layout_constraintStart_toStartOf="@id/guidelineMid"
+                    app:layout_constraintTop_toTopOf="@id/sunriseSetText" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
