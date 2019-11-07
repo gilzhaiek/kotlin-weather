@@ -3,4 +3,7 @@
     <color name="colorPrimary">#4FC3F7</color>
     <color name="colorPrimaryDark">#7986CB</color>
     <color name="colorAccent">#FF8A65</color>
+    <color name="colorSun">#FF8A65</color>
+    <color name="colorMoon">#64B5F6</color>
+    <color name="colorWeather">#464646</color>
 </resources>

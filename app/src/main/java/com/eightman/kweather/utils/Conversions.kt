@@ -8,3 +8,10 @@ fun Long.getUiDate(): String =
         simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT")
         return simpleDateFormat.format(Date(this))
     }
+
+
+fun Double.kelvinToC(): Double = this - 273.15
+fun Double.kelvinToF(): Double = this.kelvinToC() * 1.8 + 32.0
+fun Double.mpsToKMH(): Double = this * 3.6
+fun Double.mpsToMPH(): Double = this * 2.23694
+fun Double.round(decimals: Int = 1): Double = "%.${decimals}f".format(this).toDouble()

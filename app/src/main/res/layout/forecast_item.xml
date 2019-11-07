@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="city"
+            type="com.eightman.kweather.network.City" />
 
         <variable
             name="forecast"
@@ -39,6 +42,50 @@
             app:layout_constraintTop_toTopOf="parent"
             app:secToDate="@{forecast.dt}"
             tools:text="Friday, Oct. 25" />
+
+
+        <TextView
+            android:id="@+id/forecastItemWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding_half"
+            android:text="@{forecast.weatherFirst.description}"
+            app:layout_constraintStart_toStartOf="@id/forecastItemDate"
+            app:layout_constraintTop_toBottomOf="@id/forecastItemDate"
+            tools:text="Scattered Clouds" />
+
+        <TextView
+            android:id="@+id/forecastItemHighTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:gravity="end"
+            app:inImperial="@{city.inImperial}"
+            app:kelvin="@{forecast.temp.max}"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="@id/forecastItemDate"
+            tools:text="99.0°" />
+
+        <TextView
+            android:id="@+id/forecastItemLowTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:gravity="end"
+            app:inImperial="@{city.inImperial}"
+            app:kelvin="@{forecast.temp.min}"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="@id/forecastItemWeather"
+            tools:text="-99.0°" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/weather_icon"
+            android:src="@{forecast.weatherFirst.iconRes}"
+            app:layout_constraintBottom_toBottomOf="@id/forecastItemWeather"
+            app:layout_constraintEnd_toStartOf="@id/forecastItemHighTemp"
+            app:layout_constraintTop_toTopOf="@id/forecastItemDate" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -2,4 +2,5 @@
     <string name="app_name">Kotlin Weather</string>
     <string name="waiting_for_network">Waiting for network</string>
     <string name="today">Today</string>
+    <string name="weather_icon">Weather Icon</string>
 </resources>
