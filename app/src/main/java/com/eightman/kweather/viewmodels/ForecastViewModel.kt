@@ -11,7 +11,7 @@ import kotlinx.coroutines.*
 class ForecastViewModel : ViewModel() {
     private var currentJob: Job? = null
 
-    val forecastResponse = MutableLiveData<ForecastResponse?>()
+    private val forecastResponse = MutableLiveData<ForecastResponse?>()
 
     fun getForecastResponse(): LiveData<ForecastResponse?> = forecastResponse
 
