@@ -1,29 +1,20 @@
 package com.eightman.kweather.ui.addons
 
-import android.content.Context
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import com.eightman.kweather.KWeatherApplication.Companion.instance
 import com.eightman.kweather.db.AppDatabase
 import com.eightman.kweather.db.entities.LocationEntity
+import com.eightman.kweather.viewmodels.LocationViewModel
 import com.google.android.gms.location.*
 
 interface LastLocationAddon : LifecycleObserver {
-    fun getContext(): Context?
+    val viewModelStoreOwner: ViewModelStoreOwner?
 
-    fun onLocationUpdated(location: Location) {
-        AppDatabase.getDatabase().locationDao().insert(
-            LocationEntity(
-                timestamp = (location.time / 1000).toInt(),
-                latitude = location.latitude,
-                longitude = location.longitude
-            )
-        )
-    }
+    fun getActivity(): Activity?
 
     fun requestPermissions(permissions: Array<String>, requestCode: Int) // Fragment class
 
@@ -41,13 +32,13 @@ interface LastLocationAddon : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun requestLastLocationOrStartLocationUpdates() {
         hasOrRequestLocationPermission() ?: return
-        val context = getContext() ?: return
+        val activity = getActivity() ?: return
 
-        with(LocationServices.getFusedLocationProviderClient(context)) {
+        with(LocationServices.getFusedLocationProviderClient(activity)) {
             lastLocation.addOnSuccessListener { location ->
                 when (location) {
                     null -> startLocationUpdates(this)
-                    else -> onLocationUpdated(location)
+                    else -> updateLocation(location)
                 }
             }
         }
@@ -73,11 +64,36 @@ interface LastLocationAddon : LifecycleObserver {
             object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult?) {
                     locationResult?.lastLocation?.let {
-                        onLocationUpdated(it)
+                        updateLocation(it)
                     }
                 }
             },
             null
+        )
+    }
+
+    private fun updateLocation(location: Location) {
+        storeInDb(location)
+        viewModelStoreOwner?.let {
+            val viewModel = ViewModelProvider(it).get(LocationViewModel::class.java)
+            if(viewModel.latLon.value == null) {
+                viewModel.latLon.postValue(
+                    LocationViewModel.LatLon(
+                        location.latitude,
+                        location.longitude
+                    )
+                )
+            }
+        }
+    }
+
+    fun storeInDb(location: Location) {
+        AppDatabase.getDatabase().locationDao().insert(
+            LocationEntity(
+                timestamp = (location.time / 1000).toInt(),
+                latitude = location.latitude,
+                longitude = location.longitude
+            )
         )
     }
 

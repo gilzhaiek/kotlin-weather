@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.eightman.kweather.adapters.ForecastListAdapter
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.eightman.kweather.databinding.FragmentForecastBinding
-import com.eightman.kweather.network.OpenWeatherApi
 import com.eightman.kweather.ui.addons.LastLocationAddon
 import com.eightman.kweather.viewmodels.ForecastViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import com.eightman.kweather.viewmodels.LocationViewModel
 
 class ForecastFragment : Fragment(), LastLocationAddon {
+    override val viewModelStoreOwner: ViewModelStoreOwner? get() = activity
+
     private val forecastViewModel: ForecastViewModel by lazy { ForecastViewModel() }
     private val forecastListAdapter: ForecastListAdapter by lazy { ForecastListAdapter() }
 
@@ -30,13 +33,26 @@ class ForecastFragment : Fragment(), LastLocationAddon {
         binding.forecastList.adapter = forecastListAdapter
 
         lifecycle.addObserver(this)
-
         return binding.root
     }
 
-    override fun onLocationUpdated(location: Location) {
-        super.onLocationUpdated(location)
-        forecastViewModel.onLocationUpdated(location)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModelStoreOwner?.let {
+            ViewModelProvider(it).get(LocationViewModel::class.java).latLon.observe(
+                viewLifecycleOwner,
+                Observer { latLon ->
+                    try {
+                        forecastViewModel.onLocationUpdated(
+                            lat = latLon.lat.toDouble(),
+                            lon = latLon.lon.toDouble()
+                        )
+                    } catch (e: NumberFormatException) {
+
+                    }
+                })
+        }
     }
 
     override fun onRequestPermissionsResult(

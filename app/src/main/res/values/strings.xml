@@ -6,4 +6,7 @@
     <string name="wind">Wind</string>
     <string name="humidity">Humidity</string>
     <string name="sunrise_sunset">Sunrise/Sunset</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="set">set</string>
 </resources>
