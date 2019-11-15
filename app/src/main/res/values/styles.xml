@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="latLonStyle">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/default_padding</item>
+        <item name="android:inputType">numberDecimal|numberSigned</item>
+        <item name="android:lines">1</item>
+    </style>
+
 </resources>
