@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Kotlin Weather</string>
     <string name="waiting_for_network">Waiting for network</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="set">set</string>
 </resources>
