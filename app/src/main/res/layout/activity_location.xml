@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.LocationActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <EditText
+        android:id="@+id/latitudeText"
+        style="@style/latLonStyle"
+        android:hint="@string/latitude"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineMid"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/longitudeText"
+        style="@style/latLonStyle"
+        android:hint="@string/longitude"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guidelineMid"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/submitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_padding_double"
+        android:background="#81C784"
+        android:gravity="center"
+        android:padding="@dimen/default_padding"
+        android:text="@string/set"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="@id/longitudeText"
+        app:layout_constraintStart_toStartOf="@id/latitudeText"
+        app:layout_constraintTop_toBottomOf="@id/longitudeText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
