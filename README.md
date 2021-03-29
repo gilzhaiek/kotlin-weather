@@ -10,7 +10,7 @@ master | Empty app with needed dependancies
 [lab.05.jetpack](https://github.com/gilzhaiek/kotlin-weather/tree/lab.05.jetpack) | ViewMode & LiveData
 [lab.06.listitems](https://github.com/gilzhaiek/kotlin-weather/tree/lab.06.listitems) | RecyclerView & ListAdapter
 [lab.07.forecastitem](https://github.com/gilzhaiek/kotlin-weather/tree/lab.07.forecastitem) | Full forecast item
-[lab.08.extendeditem](https://github.com/gilzhaiek/kotlin-weather/tree/lab.08.extendeditem) | Extendded forecast item
+[lab.08.extendeditem](https://github.com/gilzhaiek/kotlin-weather/tree/lab.08.extendeditem) | Extended forecast item
 [lab.09.room](https://github.com/gilzhaiek/kotlin-weather/tree/lab.09.room) | Adding Room
   
 ![App](https://github.com/gilzhaiek/kotlin-weather/blob/master/assets/app.png?raw=true)
